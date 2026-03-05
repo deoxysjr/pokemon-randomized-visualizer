@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^5.2.10",
+    "@types/node": "^25.3.3",
     "@vueuse/core": "^14.2.1",
     "vue": "^3.3.8",
     "vuetify": "^4.0.0"
