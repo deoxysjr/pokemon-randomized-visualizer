@@ -1,4 +1,5 @@
 import { Evolution } from "../models/Evolution"
+import { Pokemon } from "../models/Pokemon"
 import { PokemonMap, SectionParser } from "../typings/pokemon"
 import { getPokemonByName } from "../utils/pokemonLookup"
 
@@ -23,7 +24,7 @@ export const impossibleEvolutionParser: SectionParser = {
                 details: condition,
                 source: "Removing Impossible Evolutions"
             }
-            pokemon.evolutions.push(evo)
+            addOrUpdateEvolution(pokemon, evo)
         }
     }
 }
@@ -35,4 +36,14 @@ function parseMethod(text: string) {
     if (lower.includes("using")) return "use_item"
     if (lower.includes("with")) return "party_condition"
     return "other"
+}
+
+function addOrUpdateEvolution(pokemon: Pokemon, evo: Evolution) {
+    const existing = pokemon.evolutions.find(e => e.to === evo.to)
+
+    if (existing) {
+        Object.assign(existing, evo)
+    } else {
+        pokemon.evolutions.push(evo)
+    }
 }

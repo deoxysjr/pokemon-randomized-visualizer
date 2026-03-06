@@ -16,7 +16,7 @@ export interface Pokemon {
 
     evolutions: Evolution[]
     evolvesFrom?: string | null
-    evolutionChain: string[]
+    evolutionChains: Array<string[]>
 
     tmCompatibility: TM[]
 }

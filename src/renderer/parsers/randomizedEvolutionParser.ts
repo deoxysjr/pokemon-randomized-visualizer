@@ -14,7 +14,6 @@ export const randomizedEvolutionParser: SectionParser = {
      */
     parse(text: string, data: PokemonMap) {
         const lines = text.split("\n")
-        console.log(lines);
         for (const line of lines) {
             if (!line.includes("->")) continue
 
@@ -24,11 +23,6 @@ export const randomizedEvolutionParser: SectionParser = {
 
             const pokemon = getPokemonByName(data, from)
             if (!pokemon) continue
-
-            if (pokemon.name == 'Eevee') {
-                console.log(targets)
-            }
-            // pokemon.evolutions = []
 
             for (const target of targets) {
                 pokemon.evolutions.push({

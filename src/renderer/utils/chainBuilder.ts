@@ -2,34 +2,54 @@ import { PokemonMap } from "../typings/pokemon"
 
 export function buildEvolutionChains(data: PokemonMap) {
     const nameMap: Record<string, any> = {}
-    Object.values(data).forEach(p => {
-        nameMap[p.name] = p
-    })
 
-    Object.values(data).forEach(p => {
+    for (const p of Object.values(data)) {
+        nameMap[p.name] = p
+        p.evolvesFrom = null
+    }
+
+    // build reverse links
+    for (const p of Object.values(data)) {
         for (const evo of p.evolutions) {
             const target = nameMap[evo.to]
-            if (target) {
-                target.evolvesFrom = p.name
+            if (!target) continue
+
+            if (!target.evolvesFrom) {
+                target.evolvesFrom = []
             }
-        }
-    })
 
-    Object.values(data).forEach(p => {
-        let root = p
-        while (root.evolvesFrom && nameMap[root.evolvesFrom]) {
-            root = nameMap[root.evolvesFrom]
+            target.evolvesFrom.push(p.name)
+        }
+    }
+
+    function getRoot(p: any): any {
+        if (!p.evolvesFrom?.length) return p
+        return getRoot(nameMap[p.evolvesFrom[0]])
+    }
+
+    function buildChains(current: any, path: string[]): string[][] {
+        const newPath = [...path, current.name]
+
+        if (!current.evolutions.length) {
+            return [newPath]
         }
 
-        const chain: string[] = []
-        let current = root
-        while (current) {
-            chain.push(current.name)
-            const next = current.evolutions[0]?.to
-            if (!next) break
-            current = nameMap[next]
+        let chains: string[][] = []
+
+        for (const evo of current.evolutions) {
+        const next = nameMap[evo.to]
+        if (!next) continue
+
+            chains.push(...buildChains(next, newPath))
         }
 
-        p.evolutionChain = chain
-    })
+        return chains
+    }
+
+    for (const p of Object.values(data)) {
+        const root = getRoot(p)
+        const chains = buildChains(root, [])
+
+        p.evolutionChains = chains
+    }
 }

@@ -1,9 +1,10 @@
 import { registerParser } from "../engine/sectionRegistry"
 import { dispatchSections } from "../engine/sectionDispatcher"
 import { buildEvolutionChains } from "../utils/chainBuilder"
-import { parseBaseStats } from "./baseStatsParser"
+import { PokemonMap } from "../typings/pokemon"
 
 // Parsers
+import { baseStatParser } from "./baseStatsParser"
 import { tmParser } from "./tmParser"
 import { movesetParser } from "./movesetParser"
 import { randomizedEvolutionParser } from "./randomizedEvolutionParser"
@@ -11,20 +12,21 @@ import { impossibleEvolutionParser } from "./impossibleEvolutionParser"
 import { easyEvolutionParser } from "./easyEvolutionParser"
 import { timedEvolutionParser } from "./timedEvolutionParser"
 
-// registerParser(tmParser)
-// registerParser(movesetParser)
+registerParser(baseStatParser)
+registerParser(tmParser)
+registerParser(movesetParser)
 registerParser(randomizedEvolutionParser)
-// registerParser(impossibleEvolutionParser)
-// registerParser(easyEvolutionParser)
-// registerParser(timedEvolutionParser)
+registerParser(impossibleEvolutionParser)
+registerParser(easyEvolutionParser)
+registerParser(timedEvolutionParser)
 
 export function convertToJson(log:string) {
-    const pokemonData = parseBaseStats(log)
+    const pokemonData: PokemonMap = {}
 
     dispatchSections(log, pokemonData)
 
-    // buildEvolutionChains(pokemonData)
+    buildEvolutionChains(pokemonData)
 
     const result = Object.values(pokemonData)
-    console.log(result[132]);
+    console.log(result[0]);
 }

@@ -1,4 +1,5 @@
 import { Evolution } from "../models/Evolution"
+import { Pokemon } from "../models/Pokemon"
 import { PokemonMap, SectionParser } from "../typings/pokemon"
 import { getPokemonByName } from "../utils/pokemonLookup"
 
@@ -17,7 +18,7 @@ export const timedEvolutionParser: SectionParser = {
         const lines = text.split("\n")
         
         for (const line of lines) {
-            const match = line.match(/^(.+?)\s*->\s*(.+?)\s+(.*)$/)
+            const match = line.match(/(.+?)\s*->\s(.+?)\s+(.+)/)
             if (!match) continue
             const [, from, to, condition] = match
 
@@ -30,7 +31,7 @@ export const timedEvolutionParser: SectionParser = {
                 details: condition,
                 source: "Removing Timed-Based Evolutions"
             }
-            pokemon.evolutions.push(evo)
+            addOrUpdateEvolution(pokemon, evo)
         }
     }
 }
@@ -42,4 +43,14 @@ function parseMethod(text: string) {
     if (lower.includes("using")) return "use_item"
     if (lower.includes("with")) return "party_condition"
     return "other"
+}
+
+function addOrUpdateEvolution(pokemon: Pokemon, evo: Evolution) {
+    const existing = pokemon.evolutions.find(e => e.to === evo.to)
+
+    if (existing) {
+        Object.assign(existing, evo)
+    } else {
+        pokemon.evolutions.push(evo)
+    }
 }

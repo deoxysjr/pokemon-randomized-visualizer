@@ -1,5 +1,6 @@
 import { PokemonMap, SectionParser } from "../typings/pokemon"
 import { TM } from "../models/TM"
+import { getPokemonByName } from "../utils/pokemonLookup"
 
 export const tmParser: SectionParser = {
 
@@ -8,18 +9,21 @@ export const tmParser: SectionParser = {
     parse(text: string, data: PokemonMap) {
         const lines = text.split("\n")
         for (const line of lines) {
-            const match = line.match(/^(\d+)\s+(.+?)\s+\|(.*)$/)
+            const match = line.match(/(\d+)\s+(.+?)\s+\|(.*)/)
+            if(line.includes('Bulbasaur')) {
+                // console.log(pokemon)
+                console.log(match)
+            }
             if (!match) continue
-    
-            const number = parseInt(match[1])
+
+            const pokemon = getPokemonByName(data, match[2])
             const tmSection = match[3]
-            const pokemon = data[number]
-    
+            
             if (!pokemon) continue
             const tmMatches = tmSection.match(/TM(\d+)\s+([^|]+)/g)
-    
+            
             if (!tmMatches) continue
-            pokemon.tmCompatibility = []
+            // pokemon.tmCompatibility = []
     
             for (const entry of tmMatches) {
                 const tmMatch = entry.match(/TM(\d+)\s+(.+)/)
