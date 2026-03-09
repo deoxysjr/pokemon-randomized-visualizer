@@ -10,10 +10,6 @@ export const tmParser: SectionParser = {
         const lines = text.split("\n")
         for (const line of lines) {
             const match = line.match(/(\d+)\s+(.+?)\s+\|(.*)/)
-            if(line.includes('Bulbasaur')) {
-                // console.log(pokemon)
-                console.log(match)
-            }
             if (!match) continue
 
             const pokemon = getPokemonByName(data, match[2])
@@ -23,7 +19,6 @@ export const tmParser: SectionParser = {
             const tmMatches = tmSection.match(/TM(\d+)\s+([^|]+)/g)
             
             if (!tmMatches) continue
-            // pokemon.tmCompatibility = []
     
             for (const entry of tmMatches) {
                 const tmMatch = entry.match(/TM(\d+)\s+(.+)/)

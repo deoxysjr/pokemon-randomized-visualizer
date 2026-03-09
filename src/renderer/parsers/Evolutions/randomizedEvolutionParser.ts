@@ -1,5 +1,5 @@
-import { PokemonMap, SectionParser } from "../typings/section"
-import { getPokemonByName } from "../utils/pokemonLookup"
+import { ParserContext, SectionParser } from "../../typings/section"
+import { getPokemonByName } from "../../utils/pokemonLookup"
 
 export const randomizedEvolutionParser: SectionParser = {
     /**
@@ -12,7 +12,7 @@ export const randomizedEvolutionParser: SectionParser = {
      * @param text Section text
      * @param data List of pokemon
      */
-    parse(text: string, data: PokemonMap) {
+    parse(text: string, data: ParserContext) {
         const lines = text.split("\n")
         for (const line of lines) {
             if (!line.includes("->")) continue
@@ -21,7 +21,7 @@ export const randomizedEvolutionParser: SectionParser = {
             const from = fromRaw.trim()
             const targets = parseEvolutionTargets(toRaw)
 
-            const pokemon = getPokemonByName(data, from)
+            const pokemon = getPokemonByName(data.pokemon, from)
             if (!pokemon) continue
 
             for (const target of targets) {

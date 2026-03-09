@@ -1,4 +1,4 @@
-import { Pokemon } from "../models/Pokemon";
+import { Pokemon } from "../models/pokemon";
 import { PokemonMap } from "../typings/section";
 
 export function getPokemonByName(data: PokemonMap, name: string): Pokemon | undefined {

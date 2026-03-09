@@ -1,7 +1,7 @@
-import { Evolution } from "../models/Evolution"
-import { Pokemon } from "../models/Pokemon"
-import { PokemonMap, SectionParser } from "../typings/section"
-import { getPokemonByName } from "../utils/pokemonLookup"
+import { Evolution } from "../../models/Evolution"
+import { Pokemon } from "../../models/pokemon"
+import { ParserContext, SectionParser } from "../../typings/section"
+import { getPokemonByName } from "../../utils/pokemonLookup"
 
 export const timedEvolutionParser: SectionParser = {
     /**
@@ -14,7 +14,7 @@ export const timedEvolutionParser: SectionParser = {
      * @param text Section text
      * @param data List of pokemon
      */
-    parse(text: string, data: PokemonMap) {
+    parse(text: string, data: ParserContext) {
         const lines = text.split("\n")
         
         for (const line of lines) {
@@ -22,7 +22,7 @@ export const timedEvolutionParser: SectionParser = {
             if (!match) continue
             const [, from, to, condition] = match
 
-            const pokemon = getPokemonByName(data, from.trim())
+            const pokemon = getPokemonByName(data.pokemon, from.trim())
             if (!pokemon) continue
 
             const evo: Evolution = {

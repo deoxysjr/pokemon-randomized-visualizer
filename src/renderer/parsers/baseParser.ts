@@ -1,17 +1,23 @@
 import { registerParser } from "../engine/sectionRegistry"
 import { dispatchSections } from "../engine/sectionDispatcher"
 import { buildEvolutionChains } from "../utils/chainBuilder"
-import { MoveMap, PokemonMap } from "../typings/section"
+import { ParserContext } from "../typings/section"
 
 // Parsers
+import { movesParser } from "./movesParser"
 import { baseStatParser } from "./baseStatsParser"
 import { tmParser } from "./tmParser"
 import { movesetParser } from "./movesetParser"
-import { randomizedEvolutionParser } from "./randomizedEvolutionParser"
-import { impossibleEvolutionParser } from "./impossibleEvolutionParser"
-import { easyEvolutionParser } from "./easyEvolutionParser"
-import { timedEvolutionParser } from "./timedEvolutionParser"
+import { randomizedEvolutionParser } from "./Evolutions/randomizedEvolutionParser"
+import { impossibleEvolutionParser } from "./Evolutions/impossibleEvolutionParser"
+import { easyEvolutionParser } from "./Evolutions/easyEvolutionParser"
+import { timedEvolutionParser } from "./Evolutions/timedEvolutionParser"
+import { encounterParser } from "./encounterParser"
 
+// Move registers
+registerParser(movesParser)
+
+// Pokemon registers
 registerParser(baseStatParser)
 registerParser(tmParser)
 registerParser(movesetParser)
@@ -19,15 +25,19 @@ registerParser(randomizedEvolutionParser)
 registerParser(impossibleEvolutionParser)
 registerParser(easyEvolutionParser)
 registerParser(timedEvolutionParser)
+registerParser(encounterParser)
 
 export function convertToJson(log:string) {
-    const pokemonData: PokemonMap = {}
-    const moveData: MoveMap = {}
+    const dataMaps: ParserContext = {
+        pokemon: {},
+        moves: {},
+        encounterSets: {}
+    }
 
-    dispatchSections(log, pokemonData)
+    dispatchSections(log, dataMaps)
 
-    buildEvolutionChains(pokemonData)
+    buildEvolutionChains(dataMaps.pokemon)
 
-    const result = Object.values(pokemonData)
+    const result = Object.values(dataMaps)
     console.log(result);
 }

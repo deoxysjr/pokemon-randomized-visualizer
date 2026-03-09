@@ -1,9 +1,9 @@
-import { PokemonMap, SectionParser } from "../typings/section"
+import { ParserContext, SectionParser } from "../typings/section"
 
 export const movesetParser: SectionParser = {
     section: "Pokemon Movesets",
 
-    parse(text: string, data: PokemonMap) {
+    parse(text: string, data: ParserContext) {
         const lines = text.split("\n")
         let currentPokemon = null
         
@@ -13,7 +13,7 @@ export const movesetParser: SectionParser = {
         
             if (header) {
                 const number = parseInt(header[1])
-                currentPokemon = data[number]
+                currentPokemon = data.pokemon[number]
                 continue
             }
             if (!currentPokemon) continue

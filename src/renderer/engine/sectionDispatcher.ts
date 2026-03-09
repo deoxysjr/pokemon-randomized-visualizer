@@ -1,7 +1,7 @@
-import { PokemonMap } from "../typings/section"
+import { ParserContext } from "../typings/section"
 import { getParser, getRegisteredParsers } from "./sectionRegistry"
 
-export function dispatchSections(text: string, data: PokemonMap) {
+export function dispatchSections(text: string, data: ParserContext) {
     const parts = text.split(/--(.+?)--/g)
 
     const sections = new Map<string, string>()
@@ -22,17 +22,3 @@ export function dispatchSections(text: string, data: PokemonMap) {
         parser.parse(sectionText, data)
     }
 }
-
-// export function dispatchSections(text: string, data: PokemonMap) {
-//     const parts = text.split(/--(.+?)--/g)
-//     for (let i = 1; i < parts.length; i += 2) {
-//         const sectionName = parts[i].trim()
-//         const sectionText = parts[i + 1]
-//         const parser = getParser(sectionName)
-
-//         if (!parser) continue
-
-//         console.log(`Parsing: ${sectionName}`)
-//         parser.parse(sectionText, data)
-//     }
-// }

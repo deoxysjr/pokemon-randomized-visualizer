@@ -1,12 +1,12 @@
-import { Evolution } from "../models/Evolution"
-import { Pokemon } from "../models/Pokemon"
-import { PokemonMap, SectionParser } from "../typings/section"
-import { getPokemonByName } from "../utils/pokemonLookup"
+import { Pokemon } from "../../models/pokemon"
+import { Evolution } from "../../models/Evolution"
+import { SectionParser, ParserContext } from "../../typings/section"
+import { getPokemonByName } from "../../utils/pokemonLookup"
 
 export const impossibleEvolutionParser: SectionParser = {
     section: "Removing Impossible Evolutions",
 
-    parse(text: string, data: PokemonMap) {
+    parse(text: string, data: ParserContext) {
         const lines = text.split("\n")
         
         for (const line of lines) {
@@ -15,7 +15,7 @@ export const impossibleEvolutionParser: SectionParser = {
 
             const [, from, to, condition] = match
 
-            const pokemon = getPokemonByName(data, from.trim())
+            const pokemon = getPokemonByName(data.pokemon, from.trim())
             if (!pokemon) continue
 
             const evo: Evolution = {

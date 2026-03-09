@@ -1,4 +1,4 @@
-import { PokemonMap, SectionParser } from "../typings/section"
+import { ParserContext, SectionParser } from "../typings/section"
 
 export const Parser: SectionParser = {
     /**
@@ -11,5 +11,5 @@ export const Parser: SectionParser = {
      * @param text Section text
      * @param data List of pokemon
      */
-    parse(text: string, data: PokemonMap) {}
+    parse(text: string, data: ParserContext) {}
 }

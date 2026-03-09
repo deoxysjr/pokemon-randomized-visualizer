@@ -16,5 +16,5 @@ export interface Move {
     power?:number
     accuracy?:number
     pp?:number
-    category?: 'SPECIAL'|'PHYSICAL'|'STATUS'
+    category?: string
 }

@@ -2,13 +2,13 @@
 import viteLogo from './assets/vite.svg';
 import vueLogo from './assets/vue.svg';
 
-import HelloWorld from './components/HelloWorld.vue'
+import LoadFile from './components/LoadFile.vue'
 
 window.electronAPI.sendMessage('Hello from App.vue!');
 </script>
 
 <template>
-  <HelloWorld msg="Load file" />
+  <LoadFile msg="Load file" />
 </template>
 
 <style scoped>

@@ -1,12 +1,12 @@
-import { Evolution } from "../models/Evolution"
-import { Pokemon } from "../models/Pokemon"
-import { PokemonMap, SectionParser } from "../typings/section"
-import { getPokemonByName } from "../utils/pokemonLookup"
+import { Evolution } from "../../models/Evolution"
+import { Pokemon } from "../../models/pokemon"
+import { ParserContext, SectionParser } from "../../typings/section"
+import { getPokemonByName } from "../../utils/pokemonLookup"
 
 export const easyEvolutionParser: SectionParser = {
     section: "Making Evolutions Easier",
 
-    parse(text: string, data: PokemonMap) {
+    parse(text: string, data: ParserContext) {
         const lines = text.split("\n")
         
         for (const line of lines) {
@@ -17,7 +17,7 @@ export const easyEvolutionParser: SectionParser = {
             const from = easyMatch[1].trim()
             const to = easyMatch[2].trim()
             const level = Number(easyMatch[3])
-            const pokemon = getPokemonByName(data, from)
+            const pokemon = getPokemonByName(data.pokemon, from)
             if (!pokemon) continue
 
             const evo: Evolution = {

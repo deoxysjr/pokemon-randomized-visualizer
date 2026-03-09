@@ -1,5 +1,5 @@
 import { Pokemon } from "../models/Pokemon"
-import { PokemonMap, SectionParser } from "../typings/section"
+import { SectionParser, ParserContext } from "../typings/section"
 
 export const baseStatParser: SectionParser = {
     /**
@@ -12,7 +12,7 @@ export const baseStatParser: SectionParser = {
      * @param text Section text
      * @param data List of pokemon
      */
-    parse(text: string, data: PokemonMap) {
+    parse(text: string, data: ParserContext) {
         const lines = text.split("\n")
         
         for (const line of lines) {
@@ -49,7 +49,7 @@ export const baseStatParser: SectionParser = {
                 tmCompatibility: []
             }
         
-            data[number] = pokemon
+            data.pokemon[number] = pokemon
         }
     }
 }
