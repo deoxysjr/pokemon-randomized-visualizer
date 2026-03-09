@@ -1,4 +1,4 @@
-import { PokemonMap, SectionParser } from "../typings/pokemon"
+import { PokemonMap, SectionParser } from "../typings/section"
 import { TM } from "../models/TM"
 import { getPokemonByName } from "../utils/pokemonLookup"
 

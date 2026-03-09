@@ -1,5 +1,5 @@
 import { Pokemon } from "../models/Pokemon"
-import { PokemonMap, SectionParser } from "../typings/pokemon"
+import { PokemonMap, SectionParser } from "../typings/section"
 
 export const baseStatParser: SectionParser = {
     /**

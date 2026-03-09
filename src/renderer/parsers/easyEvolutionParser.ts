@@ -1,5 +1,6 @@
 import { Evolution } from "../models/Evolution"
-import { PokemonMap, SectionParser } from "../typings/pokemon"
+import { Pokemon } from "../models/Pokemon"
+import { PokemonMap, SectionParser } from "../typings/section"
 import { getPokemonByName } from "../utils/pokemonLookup"
 
 export const easyEvolutionParser: SectionParser = {
@@ -18,15 +19,24 @@ export const easyEvolutionParser: SectionParser = {
             const level = Number(easyMatch[3])
             const pokemon = getPokemonByName(data, from)
             if (!pokemon) continue
-    
-            pokemon.evolutions = []
+
             const evo: Evolution = {
                 to,
                 method: "level",
                 level,
                 source: "Making Evolutions Easier"
             }
-            pokemon.evolutions.push(evo)
+            addOrUpdateEvolution(pokemon, evo)
         }
+    }
+}
+
+function addOrUpdateEvolution(pokemon: Pokemon, evo: Evolution) {
+    const existing = pokemon.evolutions.find(e => e.to === evo.to)
+
+    if (existing) {
+        Object.assign(existing, evo)
+    } else {
+        pokemon.evolutions.push(evo)
     }
 }

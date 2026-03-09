@@ -1,4 +1,4 @@
-import { PokemonMap, SectionParser } from "../typings/pokemon"
+import { PokemonMap, SectionParser } from "../typings/section"
 import { getPokemonByName } from "../utils/pokemonLookup"
 
 export const randomizedEvolutionParser: SectionParser = {
@@ -16,7 +16,7 @@ export const randomizedEvolutionParser: SectionParser = {
         const lines = text.split("\n")
         for (const line of lines) {
             if (!line.includes("->")) continue
-
+            
             const [fromRaw, toRaw] = line.split("->")
             const from = fromRaw.trim()
             const targets = parseEvolutionTargets(toRaw)

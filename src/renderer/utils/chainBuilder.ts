@@ -1,4 +1,4 @@
-import { PokemonMap } from "../typings/pokemon"
+import { PokemonMap } from "../typings/section"
 
 export function buildEvolutionChains(data: PokemonMap) {
     const nameMap: Record<string, any> = {}

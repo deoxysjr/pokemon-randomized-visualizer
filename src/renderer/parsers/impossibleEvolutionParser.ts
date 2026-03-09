@@ -1,6 +1,6 @@
 import { Evolution } from "../models/Evolution"
 import { Pokemon } from "../models/Pokemon"
-import { PokemonMap, SectionParser } from "../typings/pokemon"
+import { PokemonMap, SectionParser } from "../typings/section"
 import { getPokemonByName } from "../utils/pokemonLookup"
 
 export const impossibleEvolutionParser: SectionParser = {

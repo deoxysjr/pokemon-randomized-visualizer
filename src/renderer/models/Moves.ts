@@ -8,3 +8,13 @@ export interface Moveset {
     levelUp: LevelMove[]
     eggMoves: string[]
 }
+
+export interface Move {
+    id: number
+    name: string
+    type?: string
+    power?:number
+    accuracy?:number
+    pp?:number
+    category?: 'SPECIAL'|'PHYSICAL'|'STATUS'
+}

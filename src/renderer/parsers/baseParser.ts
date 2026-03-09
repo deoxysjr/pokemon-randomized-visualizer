@@ -1,7 +1,7 @@
 import { registerParser } from "../engine/sectionRegistry"
 import { dispatchSections } from "../engine/sectionDispatcher"
 import { buildEvolutionChains } from "../utils/chainBuilder"
-import { PokemonMap } from "../typings/pokemon"
+import { MoveMap, PokemonMap } from "../typings/section"
 
 // Parsers
 import { baseStatParser } from "./baseStatsParser"
@@ -22,11 +22,12 @@ registerParser(timedEvolutionParser)
 
 export function convertToJson(log:string) {
     const pokemonData: PokemonMap = {}
+    const moveData: MoveMap = {}
 
     dispatchSections(log, pokemonData)
 
     buildEvolutionChains(pokemonData)
 
     const result = Object.values(pokemonData)
-    console.log(result[0]);
+    console.log(result);
 }
