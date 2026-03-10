@@ -25,6 +25,8 @@ registerParser(randomizedEvolutionParser)
 registerParser(impossibleEvolutionParser)
 registerParser(easyEvolutionParser)
 registerParser(timedEvolutionParser)
+
+// Wild encounters
 registerParser(encounterParser)
 
 export function convertToJson(log:string) {
@@ -40,4 +42,5 @@ export function convertToJson(log:string) {
 
     const result = Object.values(dataMaps)
     console.log(result);
+    return result;
 }
