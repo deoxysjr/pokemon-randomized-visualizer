@@ -41,6 +41,6 @@ export function convertToJson(log:string) {
     buildEvolutionChains(dataMaps.pokemon)
 
     const result = Object.values(dataMaps)
-    console.log(result);
+    // console.log(result);
     return result;
 }

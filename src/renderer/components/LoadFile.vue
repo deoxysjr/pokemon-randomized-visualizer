@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useFileDialog } from '@vueuse/core';
 import { convertToJson } from '../parsers/baseParser'
 
 defineProps({
   msg: String,
 })
 
+const emit = defineEmits(['log-file-loaded'])
+
 async function changeFile(e:any) {
   const fileText = await e.target.files[0].text();
   // console.log(fileText);
-  convertToJson(fileText);
+  const contextList = convertToJson(fileText);
+  emit('log-file-loaded', contextList)
 }
 </script>
 

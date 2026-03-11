@@ -28,6 +28,7 @@
     "@fontsource/roboto": "^5.2.10",
     "@types/node": "^25.3.3",
     "@vueuse/core": "^14.2.1",
+    "pokemon-sprites": "github:PokeAPI/sprites",
     "vue": "^3.3.8",
     "vuetify": "^4.0.0"
   }
