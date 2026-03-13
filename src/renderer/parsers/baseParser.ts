@@ -42,5 +42,5 @@ export function convertToJson(log:string) {
 
     const result = Object.values(dataMaps)
     // console.log(result);
-    return result;
+    return dataMaps;
 }
