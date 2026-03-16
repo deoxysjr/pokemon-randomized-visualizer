@@ -13,7 +13,7 @@ const page = ref(1)
 
 <template>
 
-    <v-data-iterator :items="Object.values(pokeList)" :page="page" :items-per-page="18">
+    <v-data-iterator :items="Object.values(pokeList)" :page="page" :items-per-page="24">
         <template v-slot:default="{ items }">
             <v-row v-if="pokeList">
                 <v-col cols="6" sm="3" md="2" v-for="pokemon in items">
@@ -22,7 +22,7 @@ const page = ref(1)
             </v-row>
         </template>
         <template v-slot:footer="{ pageCount }">
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+            <v-pagination v-model="page" :length="pageCount" total-visible="7"></v-pagination>
         </template>
     </v-data-iterator>
 

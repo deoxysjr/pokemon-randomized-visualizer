@@ -14,8 +14,8 @@ function fileLoaded(data:ParserContext) {
 
 <template>
 
-    <LoadFile msg="Load file" @log-file-loaded="fileLoaded" />
     <PokeDex v-if="pokeData" :poke-list="pokeData.pokemon"></PokeDex>
+    <LoadFile v-else msg="Load file" @log-file-loaded="fileLoaded" />
     <!-- <p v-if="pokeData">{{ pokeData.pokemon }}</p> -->
 
 </template>
