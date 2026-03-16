@@ -15,10 +15,10 @@ defineProps<{
     </div> -->
     <v-divider></v-divider>
     <v-btn>
-        Target Activator
+        Show stats
         <v-dialog activator="parent" max-width="440">
             <template v-slot:default="{ isActive }">
-                <v-card prepend-icon="mdi-bullseye-arrow" title="Target Activator">
+                <v-card>
                     <v-card-title>{{ pokemon.number }}: {{ pokemon.name }}</v-card-title>
                     <v-row>
                         <v-col cols="12">
